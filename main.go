@@ -51,12 +51,14 @@ func main() {
 	f, err := os.Create(filedesc)
 	check(err)
 	defer f.Close()
-	_, err = f.WriteString("writes\n")
+	_, err = f.WriteString(hash)
 	check(err)
 	f.Sync()
 
 	err =  os.Rename(file, finalName)
 
 	check(err)
+
+	fmt.Printf("%v generated with content [%v]", filedesc, hash)
 
 }
