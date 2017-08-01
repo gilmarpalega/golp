@@ -18,7 +18,7 @@ func datetimeHash() (ret string) {
 
 	t := time.Now()
 
-	ret = fmt.Sprintf("%04d/%02d/%02d-%02d%02d%02d",
+	ret = fmt.Sprintf("%04d%02d%02d-%02d%02d%02d",
 		t.Year(),
 		t.Month(),
 		t.Day(),
@@ -37,6 +37,12 @@ func check(e error) {
 }
 
 func main() {
+
+	// Check if the file exists
+	if _, err := os.Stat(file); os.IsNotExist(err) {
+		fmt.Println("The file app.min.js doesnt exists")
+		panic(err)
+	}
 
 	parts := strings.SplitN(file, ".", 2)
 	hash := datetimeHash()
