@@ -46,7 +46,7 @@ func main() {
 
 	parts := strings.SplitN(file, ".", 2)
 	hash := datetimeHash()
-	finalName := fmt.Sprintf("%v_%v%v", parts[0], hash, parts[1])
+	finalName := fmt.Sprintf("%v_%v.%v", parts[0], hash, parts[1])
 
 	f, err := os.Create(filedesc)
 	check(err)
@@ -59,6 +59,6 @@ func main() {
 
 	check(err)
 
-	fmt.Printf("%v generated with content [%v]", filedesc, hash)
+	fmt.Printf("%v generated with content [%v]\n", filedesc, hash)
 
 }
