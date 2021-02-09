@@ -1,18 +1,18 @@
 package main
 
 import (
-	"os"
 	"fmt"
-	"time"
+	"os"
 	"strings"
+	"time"
 )
 
 // This will rename file to dist/app_20170801-084212.min.js
 const file = "dist/app.min.js"
+const aluno = "dist/aluno.min.js"
 
 // This file will contain app_20170801-084212.min.js, so the app can read it and set in the proper main templates
 const filedesc = "dist/filename.txt"
-
 
 func datetimeHash() (ret string) {
 
@@ -29,7 +29,6 @@ func datetimeHash() (ret string) {
 	return
 }
 
-
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -45,9 +44,11 @@ func main() {
 	}
 
 	parts := strings.SplitN(file, ".", 2)
+	partsaluno := strings.SplitN(aluno, ".", 2)
 	hash := datetimeHash()
 
 	finalName := fmt.Sprintf("%v_%v.%v", parts[0], hash, parts[1])
+	finalAluno := fmt.Sprintf("%v_%v.%v", partsaluno[0], hash, partsaluno[1])
 
 	f, err := os.Create(filedesc)
 	check(err)
@@ -56,10 +57,11 @@ func main() {
 	check(err)
 	f.Sync()
 
-	err =  os.Rename(file, finalName)
+	err = os.Rename(file, finalName)
+	err = os.Rename(aluno, finalAluno)
 
 	check(err)
 
-	fmt.Printf("%v generated with content [%v]\n", filedesc, finalName)
+	fmt.Printf("%v generated with content [%v] and [%v]\n", filedesc, finalName, finalAluno)
 
 }
